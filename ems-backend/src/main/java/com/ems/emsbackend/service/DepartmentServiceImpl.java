@@ -8,6 +8,10 @@ import com.ems.emsbackend.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.Collator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
@@ -21,12 +25,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartmentDto findDepartmentById(Long departmentId) {
+    public DepartmentDto getDepartmentById(Long departmentId) {
         Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(
                         ()->new ResourceNotFoundException("Department doesn't exists with the given department id: "+departmentId)
                 );
         return DepartmentMapper.mapToDepartmentDto(department);
+    }
+
+    @Override
+    public List<DepartmentDto> getAllDepartments() {
+        List<Department> departments = departmentRepository.findAll();
+        return departments.stream().map((department)->DepartmentMapper.mapToDepartmentDto(department))
+                .collect(Collectors.toList());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.ems.emsbackend.controller;
 
 import com.ems.emsbackend.dto.DepartmentDto;
+import com.ems.emsbackend.entity.Department;
 import com.ems.emsbackend.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
@@ -8,12 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/departments")
 public class DepartmentController {
 
+    //injecting departmentService as a dependencies using constructor based dependencies injection
     private DepartmentService departmentService;
 
     //build add department REST API
@@ -25,9 +29,16 @@ public class DepartmentController {
 
     //Build find Department By ID REST API
 
-    @GetMapping({"id"})
+    @GetMapping("{id}")
     public ResponseEntity<DepartmentDto> getDepartmentById(@PathVariable("id") Long departmentId){
-        DepartmentDto departmentDto = departmentService.findDepartmentById(departmentId);
+        DepartmentDto departmentDto = departmentService.getDepartmentById(departmentId);
         return ResponseEntity.ok(departmentDto);
+    }
+
+    //Build find All Department REST API
+    @GetMapping
+    public ResponseEntity<List<DepartmentDto>> getAllDepartments(){
+        List<DepartmentDto> departments = departmentService.getAllDepartments();
+        return ResponseEntity.ok(departments);
     }
 }
