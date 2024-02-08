@@ -54,7 +54,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void deleteDepartmentById(Long departmentId) {
-
+        departmentRepository.findById(departmentId).orElseThrow(
+                ()->new ResourceNotFoundException("Department doesn't exists with the given id: "+departmentId)
+        );
+        departmentRepository.deleteById(departmentId);
     }
 
 }
