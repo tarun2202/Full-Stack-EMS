@@ -40,4 +40,21 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public DepartmentDto updateDepartment(Long departmentId, DepartmentDto updatedDepartment) {
+        Department department = departmentRepository.findById(departmentId).orElseThrow(
+                ()->new ResourceNotFoundException("Department with given id doesn't exists")
+        );
+        department.setDepartmentName(updatedDepartment.getDepartmentName());
+        department.setDepartmentDescription((updatedDepartment.getDepartmentDescription()));
+
+        Department updatedDepartmentObj = departmentRepository.save(department);
+        return DepartmentMapper.mapToDepartmentDto(updatedDepartmentObj);
+    }
+
+    @Override
+    public void deleteDepartmentById(Long departmentId) {
+
+    }
+
 }

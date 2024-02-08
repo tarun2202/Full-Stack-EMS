@@ -41,4 +41,14 @@ public class DepartmentController {
         List<DepartmentDto> departments = departmentService.getAllDepartments();
         return ResponseEntity.ok(departments);
     }
+
+    //Build update Department REST API
+
+    @PutMapping("{id}")
+    public ResponseEntity<DepartmentDto> updateDepartments(@PathVariable("id") Long departmentId,
+                                                           @RequestBody DepartmentDto updatedDepartment){
+        DepartmentDto departmentDto = departmentService.updateDepartment(departmentId, updatedDepartment);
+        return ResponseEntity.ok(departmentDto);
+    }
+
 }
