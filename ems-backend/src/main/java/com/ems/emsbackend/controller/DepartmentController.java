@@ -22,4 +22,12 @@ public class DepartmentController {
         DepartmentDto savedDepartment = departmentService.createDepartment(departmentDto);
         return new ResponseEntity<>(savedDepartment, HttpStatus.CREATED);
     }
+
+    //Build find Department By ID REST API
+
+    @GetMapping({"id"})
+    public ResponseEntity<DepartmentDto> getDepartmentById(@PathVariable("id") Long departmentId){
+        DepartmentDto departmentDto = departmentService.findDepartmentById(departmentId);
+        return ResponseEntity.ok(departmentDto);
+    }
 }
