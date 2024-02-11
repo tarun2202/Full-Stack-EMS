@@ -32,30 +32,30 @@ const EmployeeComponent = () => {
     }, [id])
 
     function saveOrUpdateEmployee(e){
-        e.preventDefault();
+      e.preventDefault();
 
-        if(validateForm()){
+      if(validateForm()){
 
-            const employee = {firstName, lastName, email}
-            console.log(employee)
+          const employee = {firstName, lastName, email}
+          console.log(employee)
 
-            if(id){
-                updateEmployee(id, employee).then((response) => {
-                    console.log(response.data);
-                    navigator('/employees');
-                }).catch(error => {
-                    console.error(error);
-                })
-            } else {
-                createEmployee(employee).then((response) => {
-                    console.log(response.data);
-                    navigator('/employees')
-                }).catch(error => {
-                    console.error(error);
-                })
-            }
-        }
-    }
+          if(id){
+              updateEmployee(id, employee).then((response) => {
+                  console.log(response.data);
+                  navigator('/employees');
+              }).catch(error => {
+                  console.error(error);
+              })
+          } else {
+              createEmployee(employee).then((response) => {
+                  console.log(response.data);
+                  navigator('/employees')
+              }).catch(error => {
+                  console.error(error);
+              })
+          }
+      }
+  }
 
     function validateForm(){
       let valid = true;
